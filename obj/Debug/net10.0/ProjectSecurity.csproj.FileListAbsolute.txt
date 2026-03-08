@@ -95,3 +95,4 @@ C:\Users\TOKYO\Documents\sixth_semester\ATBMTT\Code\ProjectSecurity\ProjectSecur
 C:\Users\TOKYO\Documents\sixth_semester\ATBMTT\Code\ProjectSecurity\ProjectSecurity\obj\Debug\net10.0\ProjectSecurity.pdb
 C:\Users\TOKYO\Documents\sixth_semester\ATBMTT\Code\ProjectSecurity\ProjectSecurity\obj\Debug\net10.0\ProjectSecurity.genruntimeconfig.cache
 C:\Users\TOKYO\Documents\sixth_semester\ATBMTT\Code\ProjectSecurity\ProjectSecurity\obj\Debug\net10.0\ref\ProjectSecurity.dll
+C:\Users\TOKYO\Documents\sixth_semester\ATBMTT\Code\ProjectSecurity\ProjectSecurity\obj\Debug\net10.0\ProjectSecurity.sourcelink.json

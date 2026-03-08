@@ -35,7 +35,13 @@ public class ClassicalController : Controller
 
                 break;
 
-            case "vigenere":
+            case "playfair":
+
+                result = _securityService.PlayfairEncrypt(inputText, key);
+
+                break;
+
+            case "vigenereauto":
 
                 result = _securityService.VigenereEncrypt(inputText, key);
 
@@ -63,8 +69,14 @@ public class ClassicalController : Controller
                 result = _securityService.CaesarDecrypt(inputText, caesarKey);
 
                 break;
+            
+            case "playfair":
 
-            case "vigenere":
+                result = _securityService.PlayfairDecrypt(inputText, key);
+
+                break;
+
+            case "vigenereauto":
 
                 result = _securityService.VigenereDecrypt(inputText, key);
 
