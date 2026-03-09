@@ -23,70 +23,124 @@ public class ClassicalController : Controller
     [HttpPost]
     public IActionResult Encrypt(string inputText, string key, string algorithm)
     {
-        string result = "";
-
-        switch (algorithm)
-        {
-            case "caesar":
-
-                int caesarKey = int.Parse(key);
-
-                result = _securityService.CaesarEncrypt(inputText, caesarKey);
-
-                break;
-
-            case "playfair":
-
-                result = _securityService.PlayfairEncrypt(inputText, key);
-
-                break;
-
-            case "vigenereauto":
-
-                result = _securityService.VigenereEncrypt(inputText, key);
-
-                break;
-        }
-
         ViewBag.Input = inputText;
         ViewBag.Key = key;
-        ViewBag.Result = result;
 
-        return View();
+        if (string.IsNullOrWhiteSpace(inputText))
+        {
+            ViewBag.Error = 0;
+            return View();
+        }
+
+        if (string.IsNullOrWhiteSpace(key))
+        {
+            ViewBag.Error = 1;
+            return View();
+        }
+
+        // try
+        // {
+            string result = "";
+
+            switch (algorithm)
+            {
+                case "caesar":
+
+                    int caesarKey = int.Parse(key);
+
+                    result = _securityService.CaesarEncrypt(inputText, caesarKey);
+
+                    break;
+
+                case "playfair":
+
+                    result = _securityService.PlayfairEncrypt(inputText, key);
+
+                    break;
+
+                case "vigenererepeat":
+
+                    result = _securityService.VigenereRepeatEncrypt(inputText, key);
+
+                    break;
+
+                case "vigenereauto":
+
+                    result = _securityService.VigenereAutoEncrypt(inputText, key);
+
+                    break;
+            }
+
+            ViewBag.Result = result;
+
+            return View();
+        // }
+        // catch
+        // {
+        //     ViewBag.Error = 3;
+        //     return View();
+        // }
     }
 
     [HttpPost]
     public IActionResult Decrypt(string inputText, string key, string algorithm)
     {
-        string result = "";
-
-        switch (algorithm)
-        {
-            case "caesar":
-
-                int caesarKey = int.Parse(key);
-
-                result = _securityService.CaesarDecrypt(inputText, caesarKey);
-
-                break;
-            
-            case "playfair":
-
-                result = _securityService.PlayfairDecrypt(inputText, key);
-
-                break;
-
-            case "vigenereauto":
-
-                result = _securityService.VigenereDecrypt(inputText, key);
-
-                break;
-        }
-
         ViewBag.Input = inputText;
         ViewBag.Key = key;
-        ViewBag.Result = result;
+        
+        if (string.IsNullOrWhiteSpace(inputText))
+        {
+            ViewBag.Error = 0;
+            return View();
+        }
 
-        return View();
+        if (string.IsNullOrWhiteSpace(key))
+        {
+            ViewBag.Error = 1;
+            return View();
+        }
+
+        // try
+        // {
+            string result = "";
+
+            switch (algorithm)
+            {
+                case "caesar":
+
+                    int caesarKey = int.Parse(key);
+
+                    result = _securityService.CaesarDecrypt(inputText, caesarKey);
+
+                    break;
+                
+                case "playfair":
+
+                    result = _securityService.PlayfairDecrypt(inputText, key);
+
+                    break;
+
+                case "vigenererepeat":
+
+                    result = _securityService.VigenereRepeatDecrypt(inputText, key);
+
+                    break;
+
+                case "vigenereauto":
+
+                    result = _securityService.VigenereAutoDecrypt(inputText, key);
+
+                    break;
+            }
+
+            ViewBag.Result = result;
+
+            return View();
+        // }
+        // catch
+        // {
+        //     ViewBag.Error = 3;
+        //     return View();
+        // }
     }
 }

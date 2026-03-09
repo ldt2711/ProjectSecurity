@@ -26,7 +26,7 @@ namespace ProjectSecurity.Services
             // create key matrix
             char[,] keyMatrix = CreateKeyMatrix(key);
             // split text into list of pair
-            List<string> pairs = PrepareText(text);
+            List<string> pairs = PrepareText(text, out Dictionary<int, char> special);
 
             foreach (var pair in pairs)
             {
@@ -55,6 +55,11 @@ namespace ProjectSecurity.Services
                     result.Append(keyMatrix[r2, c1]);
                 }
             }
+            foreach (var item in special)
+            {
+                result.Insert(item.Key, item.Value);
+            }
+
             return result.ToString();
         }
 
@@ -118,17 +123,29 @@ namespace ProjectSecurity.Services
             col = -1;
         }
 
-        public List<string> PrepareText(string text)
+        public List<string> PrepareText(string text, out Dictionary<int, char> special)
         {
-            // change text to uppercase and replace J to I
-            text = text.ToUpper().Replace("J", "I");
-            // eliminate all non-text char
-            text = new string(text.Where(char.IsLetter).ToArray());
+
+            special = new Dictionary<int, char>();
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                // store special char into dict
+                if (!char.IsLetter(text[i]))
+                {
+                    special.Add(i, text[i]);
+                }
+            }
+
             // list of pairs split from text
             List<string> pairs = new List<string>();
+            // change text to uppercase and replace J to I
+            text = text.ToUpper().Replace("J", "I");
+            // eliminate all special char
+            text = new string(text.Where(char.IsLetter).ToArray());
 
             for (int i = 0; i < text.Length; i+=2)
-            {
+            {                
                 // add X if the char is at the end of text
                 if (i + 1 >= text.Length)
                 {
@@ -146,14 +163,76 @@ namespace ProjectSecurity.Services
                     pairs.Add(text[i].ToString() + text[i+1]);
                 }
             }
-
             return pairs;
         }
 
-        // ******* Vigenere *******
-        public string VigenereEncrypt(string text, string key)
+        // ******* Vigenere repeat key *******
+        public string VigenereRepeatEncrypt(string text, string key)
         {
+            text = text.ToUpper();
+            key = key.ToUpper();
+
             StringBuilder result = new StringBuilder();
+
+            int keyIndex = 0;
+
+            foreach (char c in text)
+            {
+                // skip the step if it is not a letter
+                if (!char.IsLetter(c))
+                {
+                    result.Append(c);
+                    continue;
+                }
+
+                // create shift value that repeat from key to move the char of text
+                int shift = key[keyIndex % key.Length] - 'A';
+
+                // first subtract the char with A = 26 to have its position then add with shift value to move its position. Finally mod it with 26 to roll back to the start of alphabet if the char after move's value is out of alphabet and add it with A = 26 to have result
+                char encrypted = (char)(((c - 'A' + shift) % 26) + 'A');
+
+                result.Append(encrypted);
+
+                // move to another char of key
+                keyIndex++;
+            }
+            return result.ToString();
+        }
+
+        public string VigenereAutoEncrypt(string text, string key)
+        {
+            text = text.ToUpper();
+            key = key.ToUpper();
+
+            StringBuilder result = new StringBuilder();
+            // generate key based on text
+            StringBuilder fullkey = new StringBuilder(key);
+            // add untill the key has the length equal to the text
+            for (int i = 0; fullkey.Length < text.Length && i < text.Length; i++)
+            {
+                if (char.IsLetter(text[i]))
+                {
+                    fullkey.Append(text[i]);
+                }
+            }
+
+            int keyIndex = 0;
+
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c))
+                {
+                    result.Append(c);
+                    continue;
+                }
+
+                int shift = fullkey[keyIndex] - 'A';
+                char encrypted = (char)(((c - 'A') + shift) % 26 + 'A');
+
+                result.Append(encrypted);
+
+                keyIndex++;
+            }
             return result.ToString();
         }
 
@@ -176,6 +255,15 @@ namespace ProjectSecurity.Services
         {
             char[,] matrix = CreateKeyMatrix(key);
 
+            Dictionary<int, char> special = new Dictionary<int, char>();
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (!char.IsLetter(text[i]))
+                {
+                    special.Add(i, text[i]);
+                }
+            }
+            text = new string(text.Where(char.IsLetter).ToArray());
             StringBuilder result = new StringBuilder();
 
             for (int i = 0; i < text.Length; i += 2)
@@ -203,12 +291,65 @@ namespace ProjectSecurity.Services
                 }
             }
 
+            foreach (var item in special)
+            {
+                result.Insert(item.Key, item.Value);
+            }
+
             return result.ToString();
         }
         // ******* Vigenere *******
-        public string VigenereDecrypt(string text, string key)
+        public string VigenereRepeatDecrypt(string text, string key)
         {
+            text = text.ToUpper();
+            key = key.ToUpper();
+            
             StringBuilder result = new StringBuilder();
+
+            int keyIndex = 0;
+
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c))
+                {
+                    result.Append(c);
+                    continue;
+                }
+
+                int shift = key[keyIndex % key.Length] - 'A';
+                char decrypted = (char)(((c - 'A' - shift + 26) % 26) + 'A');
+                result.Append(decrypted);
+                keyIndex++;
+            }
+            return result.ToString();
+        }
+
+        public string VigenereAutoDecrypt(string text, string key)
+        {
+            text = text.ToUpper();
+            key = key.ToUpper();
+
+            StringBuilder result = new StringBuilder();
+            StringBuilder fullkey = new StringBuilder(key);
+            int keyIndex = 0;
+
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c))
+                {
+                    result.Append(c);
+                    continue;
+                }
+
+                int shift = fullkey[keyIndex] - 'A';
+                char decrypted = (char)(((c - 'A') + 26 - shift) % 26 + 'A');
+                
+                result.Append(decrypted);
+                fullkey.Append(decrypted);
+
+                keyIndex++;
+            }
+
             return result.ToString();
         }
     }

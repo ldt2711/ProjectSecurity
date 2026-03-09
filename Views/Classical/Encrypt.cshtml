@@ -2,6 +2,12 @@
     ViewData["Title"] = "Mã hóa cổ điển";
 }
 
+@if (ViewBag.Error == 3)
+{
+    <div class="alert alert-danger">
+        <p>Không thể mã hóa dữ liệu!</p>
+    </div>
+}
 <div class="container">
 
 <div class="row justify-content-center">
@@ -30,9 +36,16 @@ Text cần mã hóa
 type="text"
 name="inputText"
 class="form-control"
-placeholder="Nhập văn bản..."
+placeholder="Nhập văn bản"
 value="@ViewBag.Input"
 />
+
+@if (ViewBag.Error == 0)
+{
+    <div class="alert alert-danger">
+        <p>Hãy nhập văn bản</p>
+    </div>
+}
 
 </div>
 
@@ -48,9 +61,16 @@ Key
 type="text"
 name="key"
 class="form-control"
-placeholder="Nhập key (ví dụ: 3 hoặc SECRET)"
+placeholder="Nhập key"
 value="@ViewBag.Key"
 />
+
+@if (ViewBag.Error == 1)
+{
+    <div class="alert alert-danger">
+        <p>Hãy nhập khóa</p>
+    </div>
+}
 
 </div>
 
@@ -89,8 +109,8 @@ Caesar
 Vigenere auto-key
 </button>
 
-<button class="btn btn-warning" name="algorithm" value="vigenereloop">
-Vigenere loop-key
+<button class="btn btn-warning" name="algorithm" value="vigenererepeat">
+Vigenere repeat key
 </button>
 
 <button class="btn btn-danger" name="algorithm" value="playfair">
