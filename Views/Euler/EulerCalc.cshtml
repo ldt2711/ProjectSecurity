@@ -1,0 +1,72 @@
+@{
+    ViewData["Title"] = "Tính hàm Euler";
+}
+
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Tính giá trị hàm Euler</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <form method="post">
+
+                        <!-- INPUT TEXT -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-bold">
+                                Số cần tính
+                            </label>
+
+                            <input type="text" name="inputText" class="form-control" value="@ViewBag.Input" />
+
+                            @if (ViewBag.Error != null)
+                            {
+                                <div class="alert alert-danger">
+                                    @ViewBag.Error
+                                </div>
+                            }
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-bold">
+                                Kết quả
+                            </label>
+
+                            <input type="text" class="form-control" value="@ViewBag.Result" readonly />
+
+                        </div>
+
+                        <div class="text-center">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+
+                                <button class="btn btn-primary" name="func" value="1">
+                                    Tính
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
