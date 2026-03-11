@@ -10,125 +10,110 @@
 }
 <div class="container">
 
-<div class="row justify-content-center">
+    <div class="row justify-content-center">
 
-<div class="col-lg-8">
+        <div class="col-lg-8">
 
-<div class="card shadow">
+            <div class="card shadow">
 
-<div class="card-header bg-primary text-white">
-<h4 class="mb-0">Mã hóa cổ điển</h4>
-</div>
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Mã hóa cổ điển</h4>
+                </div>
 
-<div class="card-body">
+                <div class="card-body">
 
-<form method="post">
+                    <form method="post">
 
-<!-- INPUT TEXT -->
+                        <!-- INPUT TEXT -->
 
-<div class="mb-3">
+                        <div class="mb-3">
 
-<label class="form-label fw-bold">
-Text cần mã hóa
-</label>
+                            <label class="form-label fw-bold">
+                                Text cần mã hóa
+                            </label>
 
-<input
-type="text"
-name="inputText"
-class="form-control"
-placeholder="Nhập văn bản"
-value="@ViewBag.Input"
-/>
+                            <input type="text" name="inputText" class="form-control" placeholder="Nhập văn bản"
+                                   value="@ViewBag.Input" />
 
-@if (ViewBag.Error == 0)
-{
-    <div class="alert alert-danger">
-        <p>Hãy nhập văn bản</p>
+                            @if (ViewBag.Error == 0)
+                            {
+                                <div class="alert alert-danger">
+                                    <p>Hãy nhập văn bản</p>
+                                </div>
+                            }
+
+                        </div>
+
+                        <!-- KEY -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-bold">
+                                Key
+                            </label>
+
+                            <input type="text" name="key" class="form-control" placeholder="Nhập key"
+                                   value="@ViewBag.Key" />
+
+                            @if (ViewBag.Error == 1)
+                            {
+                                <div class="alert alert-danger">
+                                    <p>Hãy nhập khóa</p>
+                                </div>
+                            }
+
+                        </div>
+
+                        <!-- RESULT -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-bold">
+                                Kết quả
+                            </label>
+
+                            <input type="text" class="form-control" value="@ViewBag.Result" readonly />
+
+                        </div>
+
+                        <hr />
+
+                        <div class="text-center">
+
+                            <p class="text-muted mb-3">
+                                Chọn thuật toán
+                            </p>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+
+                                <button class="btn btn-primary" name="algorithm" value="caesar">
+                                    Caesar
+                                </button>
+
+                                <button class="btn btn-success" name="algorithm" value="vigenereauto">
+                                    Vigenere auto-key
+                                </button>
+
+                                <button class="btn btn-warning" name="algorithm" value="vigenererepeat">
+                                    Vigenere repeat key
+                                </button>
+
+                                <button class="btn btn-danger" name="algorithm" value="playfair">
+                                    Playfair
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-}
-
-</div>
-
-<!-- KEY -->
-
-<div class="mb-3">
-
-<label class="form-label fw-bold">
-Key
-</label>
-
-<input
-type="text"
-name="key"
-class="form-control"
-placeholder="Nhập key"
-value="@ViewBag.Key"
-/>
-
-@if (ViewBag.Error == 1)
-{
-    <div class="alert alert-danger">
-        <p>Hãy nhập khóa</p>
-    </div>
-}
-
-</div>
-
-<!-- RESULT -->
-
-<div class="mb-3">
-
-<label class="form-label fw-bold">
-Kết quả
-</label>
-
-<input
-type="text"
-class="form-control"
-value="@ViewBag.Result"
-readonly
-/>
-
-</div>
-
-<hr />
-
-<div class="text-center">
-
-<p class="text-muted mb-3">
-Chọn thuật toán
-</p>
-
-<div class="d-grid gap-2 d-md-flex justify-content-md-center">
-
-<button class="btn btn-primary" name="algorithm" value="caesar">
-Caesar
-</button>
-
-<button class="btn btn-success" name="algorithm" value="vigenereauto">
-Vigenere auto-key
-</button>
-
-<button class="btn btn-warning" name="algorithm" value="vigenererepeat">
-Vigenere repeat key
-</button>
-
-<button class="btn btn-danger" name="algorithm" value="playfair">
-Playfair
-</button>
-
-</div>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
 
 </div>

@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Text;
 
 namespace ProjectSecurity.Services
@@ -351,6 +352,39 @@ namespace ProjectSecurity.Services
             }
 
             return result.ToString();
+        }
+
+        // ===== Euler =====
+        // Apply Euler Formula φ(n) = n(1 − 1/p1)(1 − 1/p2)...
+        public BigInteger Euler(BigInteger n)
+        {
+            // declare result = n then subtract by the time follow the formula
+            BigInteger result = n;
+            // go from the smallest prime number to < sqrt(n)
+            // n = a x b; only one of two number can be smaller than sqrt(n) and the other is bigger because a x b != n if a, b > sqrt(n)
+            for (BigInteger p = 2; p * p <= n; p++)
+            {
+                // find the small prime number to subtract
+                if (n % p == 0)
+                {
+                    // divide it till it out of that prime number. eg: 14 -> /2 x1 -> 7
+                    while (n % p == 0)
+                    {
+                        n /= p;
+                    }
+                    
+                    // this is the formula n(1 - 1/p)
+                    result -= result / p;
+                }
+            }
+
+            // check the situation when n contains the prime number bigger than sqrt(n)
+            if (n > 1)
+            {
+                result -= result / n;
+            }
+
+            return result;
         }
     }
 }
