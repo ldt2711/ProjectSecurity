@@ -38,8 +38,8 @@ public class ClassicalController : Controller
             return View();
         }
 
-        // try
-        // {
+        try
+        {
             string result = "";
 
             switch (algorithm)
@@ -74,12 +74,12 @@ public class ClassicalController : Controller
             ViewBag.Result = result;
 
             return View();
-        // }
-        // catch
-        // {
-        //     ViewBag.Error = 3;
-        //     return View();
-        // }
+        }
+        catch
+        {
+            ViewBag.Error = 3;
+            return View();
+        }
     }
 
     [HttpPost]
@@ -100,8 +100,8 @@ public class ClassicalController : Controller
             return View();
         }
 
-        // try
-        // {
+        try
+        {
             string result = "";
 
             switch (algorithm)
@@ -136,12 +136,12 @@ public class ClassicalController : Controller
             ViewBag.Result = result;
 
             return View();
-        // }
-        // catch
-        // {
-        //     ViewBag.Error = 3;
-        //     return View();
-        // }
+        }
+        catch
+        {
+            ViewBag.Error = 3;
+            return View();
+        }
     }
 
     

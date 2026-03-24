@@ -1,0 +1,170 @@
+@{
+    ViewData["Title"] = "Mã hóa DES";
+}
+
+<div class="container mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Mã hóa DES</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <form method="post">
+
+                        <!-- MODE -->
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Chế độ nhập</label>
+                            <select name="mode" class="form-select">
+                                <option value="text">Text</option>
+                                <option value="hex">Hex (16 ký tự)</option>
+                                <option value="binary">Binary (64-bit)</option>
+                            </select>
+                        </div>
+
+                        <!-- INPUT TEXT -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-bold">
+                                Input
+                            </label>
+
+                            <input type="text" name="inputText" class="form-control"
+                                   placeholder="Nhập text, hex 16 ký tự, hoặc binary 64-bit"
+                                   value="@ViewBag.Input" />
+
+                            @if (ViewBag.Error == 0)
+                            {
+                                <div class="alert alert-danger mt-2">
+                                    Hãy nhập văn bản cần mã hóa
+                                </div>
+                            }
+
+                            @if (ViewBag.Error == 2)
+                            {
+                                <div class="alert alert-danger mt-2">
+                                    Input phải là chuỗi nhị phân 64 bit
+                                </div>
+                            }
+
+                            @if (ViewBag.Error == 4)
+                            {
+                                <div class="alert alert-danger mt-2">
+                                    Input phải là chuỗi hex 16 ký tự (0-9, A-F)
+                                </div>
+                            }
+
+                        </div>
+
+                        <!-- KEY -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-bold">
+                                Key
+                            </label>
+
+                            <input type="text" name="key" class="form-control"
+                                   placeholder="Nhập key (text, hex 16 ký tự, hoặc binary 64-bit)"
+                                   value="@ViewBag.Key" />
+
+                            @if (ViewBag.Error == 1)
+                            {
+                                <div class="alert alert-danger mt-2">
+                                    Hãy nhập khóa
+                                </div>
+                            }
+
+                            @if (ViewBag.Error == 3)
+                            {
+                                <div class="alert alert-danger mt-2">
+                                    Key phải là chuỗi nhị phân 64 bit
+                                </div>
+                            }
+
+                            @if (ViewBag.Error == 5)
+                            {
+                                <div class="alert alert-danger mt-2">
+                                    Key phải là chuỗi hex 16 ký tự (0-9, A-F)
+                                </div>
+                            }
+
+                        </div>
+
+                        <!-- BUTTON -->
+
+                        <div class="text-center mb-3">
+                            <button type="submit" class="btn btn-success px-4">
+                                Encrypt DES
+                            </button>
+                        </div>
+
+                        <hr />
+
+                        <!-- RESULT -->
+
+                        @if (ViewBag.BinaryPlaintext != null)
+                        {
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    Binary Plaintext
+                                </label>
+                                <textarea class="form-control" rows="2" readonly>
+                                    @ViewBag.BinaryPlaintext
+                                </textarea>
+                            </div>
+                        }
+
+                        @if (ViewBag.ResultBinary != null)
+                        {
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    Cipher Binary
+                                </label>
+                                <textarea class="form-control" rows="2" readonly>
+                                    @ViewBag.ResultBinary
+                                </textarea>
+                            </div>
+                        }
+
+                        @if (ViewBag.Result != null)
+                        {
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    Cipher Text (ASCII)
+                                </label>
+                                <input type="text" class="form-control"
+                                       value="@ViewBag.Result" readonly />
+                            </div>
+                        }
+
+                        @if (ViewBag.ResultHex != null)
+                        {
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    Cipher Text (HEX)
+                                </label>
+                                <input type="text" class="form-control"
+                                       value="@ViewBag.ResultHex" readonly />
+                            </div>
+                        }
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

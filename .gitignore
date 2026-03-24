@@ -1,0 +1,73 @@
+# =========================
+# Build results
+# =========================
+bin/
+obj/
+
+# =========================
+# Visual Studio files
+# =========================
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# =========================
+# Rider / VSCode
+# =========================
+.idea/
+.vscode/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# ASP.NET Core specific
+# =========================
+appsettings.Development.json
+appsettings.*.json
+
+# Nếu bạn có secret config
+secrets.json
+
+# =========================
+# Publish output
+# =========================
+publish/
+wwwroot/dist/
+wwwroot/lib/
+
+# =========================
+# Node (nếu có frontend)
+# =========================
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# =========================
+# Package managers
+# =========================
+*.nupkg
+packages/
+.nuget/
+
+# =========================
+# Entity Framework
+# =========================
+Migrations/*.Designer.cs
+Migrations/*.resx
+
+# =========================
+# Temp files
+# =========================
+*.tmp
+*.temp
